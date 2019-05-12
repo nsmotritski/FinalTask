@@ -11,6 +11,7 @@ using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Support.Extensions;
 using WebDriverHelper;
 
 namespace FinalTask
@@ -44,16 +45,22 @@ namespace FinalTask
         [AllureTest("Test login to tut.by using PageObject")]
         [TestCase("lvivautoteam@gmail.com", "zaq1ZAQ!", "Selenium Test")]
         [Parallelizable]
-        public void TutByLoginTest(string username, string password, string expectedUser)
+        public void GmailLoginTest(string username, string password, string expectedUser)
         {
             //Open tut.by hompage
             _driver.Url = "https://gmail.com";
             _driver.Manage().Window.Maximize();
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
             //perform login (with methods chaining)
             GmailHomePage homePage = new GmailHomePage(_driver);
-            homePage.setUsername(username)
-                    .clickNextButton();
+
+            //_driver.ExecuteJavaScript($@"document.getElementById('identifierId').setAttribute('value', '{username}')");
+
+            //var usernameControl = _driver.FindElement(By.Id("identifierId"));
+            //usernameControl.SendKeys(username);
+            //homePage.UsernameInput.SendKeys(username);
+            homePage.SetUsername(username);
             //var loggedUser = homePage.ClickEnterButton()
             //    .PerformLogin(username, password)
             //    .GetLoggedInUser();

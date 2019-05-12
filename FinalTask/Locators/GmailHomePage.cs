@@ -12,11 +12,17 @@ namespace FinalTask.Locators
     {
         private IWebDriver _driver;
 
-        [FindsBy(How = How.CssSelector, Using = "input[type=\'email\']")]
+        [FindsBy(How = How.Id, Using = "identifierId")]
         public IWebElement UsernameInput;
 
         [FindsBy(How = How.CssSelector, Using = "#identifierNext")]
         public IWebElement NextButton;
+
+        [FindsBy(How = How.CssSelector, Using = "input[name='password']")]
+        public IWebElement PasswordInput;
+
+        [FindsBy(How = How.XPath, Using = "//span[contains(@text,'Готово')]")]
+        public IWebElement ReadyButton;
 
         public GmailHomePage(IWebDriver driver)
         {
@@ -24,13 +30,13 @@ namespace FinalTask.Locators
             PageFactory.InitElements(driver, this);
         }
 
-        public GmailHomePage setUsername(string username)
+        public GmailHomePage SetUsername(string text)
         {
-            UsernameInput.SendKeys(username);
+            UsernameInput.SendKeys(text);
             return this;
         }
 
-        public GmailHomePage clickNextButton()
+        public GmailHomePage ClickNextButton()
         {
             NextButton.Click();
             return this;
