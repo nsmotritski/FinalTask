@@ -77,7 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebDriverHelper\WebDriverHelper.csproj">
-      <Project>{241dfec1-ea6c-4f92-b19e-55cf70b98e8f}</Project>
+      <Project>{241DFEC1-EA6C-4F92-B19E-55CF70B98E8F}</Project>
       <Name>WebDriverHelper</Name>
     </ProjectReference>
   </ItemGroup>

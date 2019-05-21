@@ -28,15 +28,13 @@ namespace FinalTask
         public void StartBrowser()
         {
             //Running with Selenium Grid
-            ChromeOptions options = new ChromeOptions();
-            options.AddArguments("--start-maximized");
             //var localNodeURL = "http://localhost:5566/wd/hub";
             //_driver = new RemoteWebDriver(new Uri(localNodeURL), options);
             //_driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             //_driver = new RemoteWebDriver(new Uri(localNodeURL), options);
 
             //Running locally
-            _driver = WebDriverHelper.WebDriverHelper.DeployWebDriver();
+            _driver = Driver.InitializeWebDriver();
         }
 
         [AllureLink("1")]

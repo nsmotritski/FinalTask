@@ -9,6 +9,6 @@ namespace WebDriverHelper
 {
     public class WaiterExtension
     {
-        public IWebDriver driver = 
+        //public IWebDriver driver = 
     }
 }
