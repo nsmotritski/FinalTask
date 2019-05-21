@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using OpenQA.Selenium;
+using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium;
 
 namespace WebDriverHelper
 {
@@ -12,9 +8,9 @@ namespace WebDriverHelper
     {
         public static void TakeScreenshot(this IWebDriver driver, string testTitle)
         {
-            Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
-            string Runname = testTitle + DateTime.Now.ToString("yyyy-MM-dd-HH_mm_ss");
-            string screenshotfilename = Path.Combine(WebDriverHelper.AssemblyDirectory, Runname + ".jpg");
+            var ss = ((ITakesScreenshot)driver).GetScreenshot();
+            var runname = testTitle + DateTime.Now.ToString("yyyy-MM-dd-HH_mm_ss");
+            var screenshotfilename = Path.Combine(DriverConfiguration.AssemblyDirectory, runname + ".jpg");
             ss.SaveAsFile(screenshotfilename, ScreenshotImageFormat.Png);
         }
     }

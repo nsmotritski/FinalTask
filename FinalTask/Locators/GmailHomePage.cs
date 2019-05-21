@@ -16,7 +16,10 @@ namespace FinalTask.Locators
         public IWebElement UsernameInput;
 
         [FindsBy(How = How.CssSelector, Using = "#identifierNext")]
-        public IWebElement NextButton;
+        public IWebElement UsernameNextButton;
+
+        [FindsBy(How = How.CssSelector, Using = "#passwordNext")]
+        public IWebElement PasswordNextButton;
 
         [FindsBy(How = How.CssSelector, Using = "input[name='password']")]
         public IWebElement PasswordInput;
@@ -36,10 +39,30 @@ namespace FinalTask.Locators
             return this;
         }
 
-        public GmailHomePage ClickNextButton()
+        public GmailHomePage SetPassword(string text)
         {
-            NextButton.Click();
+            PasswordInput.SendKeys(text);
             return this;
+        }
+
+        public GmailHomePage ClickUsernameNextButton()
+        {
+            UsernameNextButton.Click();
+            return this;
+        }
+
+        public GmailHomePage ClickPasswordNextButton()
+        {
+            PasswordNextButton.Click();
+            return this;
+        }
+
+        public void Login(string username, string password)
+        {
+            SetUsername(username);
+            ClickUsernameNextButton();
+            SetPassword(password);
+            ClickPasswordNextButton();
         }
     }
 }

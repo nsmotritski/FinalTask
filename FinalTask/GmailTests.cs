@@ -53,6 +53,7 @@ namespace FinalTask
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
             //perform login (with methods chaining)
+            //_driver.FindElement(By.Id("identifierId")).SendKeys(username);
             GmailHomePage homePage = new GmailHomePage(_driver);
 
             //_driver.ExecuteJavaScript($@"document.getElementById('identifierId').setAttribute('value', '{username}')");
@@ -60,7 +61,7 @@ namespace FinalTask
             //var usernameControl = _driver.FindElement(By.Id("identifierId"));
             //usernameControl.SendKeys(username);
             //homePage.UsernameInput.SendKeys(username);
-            homePage.SetUsername(username);
+            homePage.Login(username, password);
             //var loggedUser = homePage.ClickEnterButton()
             //    .PerformLogin(username, password)
             //    .GetLoggedInUser();
