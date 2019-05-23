@@ -25,5 +25,15 @@ namespace WebDriverHelper
             }
             return driver.FindElement(by);
         }
+
+        public static IWebElement WaitForElementDisplayed(this IWebDriver driver, By by, int timeoutInSeconds)
+        {
+            if (timeoutInSeconds > 0)
+            {
+                var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+                wait.Until(drv => drv.FindElement(by).Displayed);
+            }
+            return driver.FindElement(by);
+        }
     }
 }

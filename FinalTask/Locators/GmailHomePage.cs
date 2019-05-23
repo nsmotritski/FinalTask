@@ -62,7 +62,9 @@ namespace FinalTask.Locators
             SetUsername(username);
             ClickUsernameNextButton();
             SetPassword(password);
-            ClickPasswordNextButton();
+            PasswordInput.SendKeys(Keys.Enter);
+            //_driver.WaitForElementDisplayed(By.XPath("//span[contains(@text,'Далее')]"), 10).Click();
+            //ClickPasswordNextButton();
         }
     }
 }

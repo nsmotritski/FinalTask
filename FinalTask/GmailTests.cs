@@ -41,35 +41,52 @@ namespace FinalTask
         [AllureOwner("Nikolai Smotritski")]
         [AllureSeverity(Allure.Commons.Model.SeverityLevel.Minor)]
         [AllureTest("Test login to tut.by using PageObject")]
-        [TestCase("lvivautoteam@gmail.com", "zaq1ZAQ!", "Selenium Test")]
+        [TestCase("lvivautoteam@gmail.com", "zaq1ZAQ!", "Test User")]
         [Parallelizable]
         public void GmailLoginTest(string username, string password, string expectedUser)
         {
-            
-            //Open tut.by hompage
+            //Open gmail home page
             _driver.Url = "https://gmail.com";
-            _driver.Manage().Window.Maximize();
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
-            //perform login (with methods chaining)
-            //_driver.FindElement(By.Id("identifierId")).SendKeys(username);
+            //perform login
             GmailHomePage homePage = new GmailHomePage(_driver);
-
-            //_driver.ExecuteJavaScript($@"document.getElementById('identifierId').setAttribute('value', '{username}')");
-
-            //var usernameControl = _driver.FindElement(By.Id("identifierId"));
-            //usernameControl.SendKeys(username);
-            //homePage.UsernameInput.SendKeys(username);
             homePage.Login(username, password);
-            //var loggedUser = homePage.ClickEnterButton()
-            //    .PerformLogin(username, password)
-            //    .GetLoggedInUser();
+
+            var inboxPage = new InboxPage(_driver);
+            var ariaLabelText = inboxPage.AccountButton.GetAttribute("aria-label");
+
+            //when Inbox page is opened, validate that the correct user is signed in
+            Assert.IsTrue(ariaLabelText.Contains(expectedUser), $"Aria label {ariaLabelText} does not contain expected text {expectedUser}");
+            Assert.IsTrue(ariaLabelText.Contains(username), $"Aria label {ariaLabelText} does not contain expected text {username}");
 
             //take screenshot before the final check
-            _driver.TakeScreenshot("TutByLoginTest.png");
+            _driver.TakeScreenshot("GmailLoginTest.png");
+        }
 
-            //validate logged in user
-            //Assert.AreEqual(expectedUser, loggedUser, "User 'Selenium Test' is not logged in!");
+        [AllureLink("1")]
+        [AllureOwner("Nikolai Smotritski")]
+        [AllureSeverity(Allure.Commons.Model.SeverityLevel.Minor)]
+        [AllureTest("Test login to tut.by using PageObject")]
+        [TestCase("lvivautoteam2@gmail.com", "zaq1ZAQ!", "Test User")]
+        [Parallelizable]
+        public void GmailLogoutTest(string username, string password, string expectedUser)
+        {
+            //Open gmail home page
+            _driver.Url = "https://gmail.com";
+
+            //perform login
+            GmailHomePage homePage = new GmailHomePage(_driver);
+            homePage.Login(username, password);
+
+            var inboxPage = new InboxPage(_driver);
+            var ariaLabelText = inboxPage.AccountButton.GetAttribute("aria-label");
+
+            //when Inbox page is opened, validate that the correct user is signed in
+            Assert.IsTrue(ariaLabelText.Contains(expectedUser), $"Aria label {ariaLabelText} does not contain expected text {expectedUser}");
+            Assert.IsTrue(ariaLabelText.Contains(username), $"Aria label {ariaLabelText} does not contain expected text {username}");
+
+            //take screenshot before the final check
+            _driver.TakeScreenshot("GmailLoginTest.png");
         }
 
         [TearDown]
