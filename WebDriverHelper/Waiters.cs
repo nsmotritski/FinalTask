@@ -8,33 +8,26 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WebDriverHelper
 {
-    public sealed class Driver
+    public class Waiters
     {
-        private static Driver _instance = null;
 
-        static DriverConfiguration _driverConfiguration = new DriverConfiguration();
-        public static IWebDriver driver = InitializeWebDriver();
+        private Driver _driver = Driver.GetInstance();
 
-        private Driver() { }
+        //public WebDriverWait GetWaiter() => GetWaiter(10);
 
-        public static Driver GetInstance()
-        {
-            return _instance ?? (_instance = new Driver());
-        }
-
-        public static IWebDriver InitializeWebDriver()
-        {
-            return driver ?? (driver = _driverConfiguration.GetWebDriver());
-        }
+        //public WebDriverWait GetWaiter(int seconds) => new WebDriverWait(_driver, seconds);
 
         //public bool WaitForElementDisplayed(By by)
         //{
-        //    var wait = new Waiters.GetWaiter();
+        //    var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(15))
+        //    {
+        //        PollingInterval = TimeSpan.FromMilliseconds(600)
+        //    };
         //    var element = wait.Until(condition =>
         //    {
         //        try
         //        {
-        //            var elementToBeDisplayed = _instance.FindElement(by);
+        //            var elementToBeDisplayed = _driver.FindElement(by);
         //            return elementToBeDisplayed.Displayed;
         //        }
         //        catch (StaleElementReferenceException)

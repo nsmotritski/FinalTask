@@ -47,7 +47,7 @@
   <ItemGroup>
     <Compile Include="Driver.cs" />
     <Compile Include="DriverConfiguration.cs" />
-    <Compile Include="WaiterExtension.cs" />
+    <Compile Include="Waiters.cs" />
     <Compile Include="WebDriverExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

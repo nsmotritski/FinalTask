@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
+using WebDriverHelper;
 
 namespace FinalTask.Locators
 {
@@ -18,8 +19,7 @@ namespace FinalTask.Locators
         [FindsBy(How = How.CssSelector, Using = "#identifierNext")]
         public IWebElement UsernameNextButton;
 
-        [FindsBy(How = How.CssSelector, Using = "#passwordNext")]
-        public IWebElement PasswordNextButton;
+        public IWebElement PasswordNextButton => _driver.FindElement(By.CssSelector("#passwordNext"));
 
         [FindsBy(How = How.CssSelector, Using = "input[name='password']")]
         public IWebElement PasswordInput;
@@ -53,7 +53,7 @@ namespace FinalTask.Locators
 
         public GmailHomePage ClickPasswordNextButton()
         {
-            PasswordNextButton.Click();
+            _driver.FindElement(By.CssSelector("#passwordNext"), 10).Click(); 
             return this;
         }
 

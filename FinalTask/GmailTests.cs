@@ -45,6 +45,7 @@ namespace FinalTask
         [Parallelizable]
         public void GmailLoginTest(string username, string password, string expectedUser)
         {
+            
             //Open tut.by hompage
             _driver.Url = "https://gmail.com";
             _driver.Manage().Window.Maximize();
