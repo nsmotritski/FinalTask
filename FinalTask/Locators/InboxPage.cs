@@ -27,5 +27,15 @@ namespace FinalTask.Locators
                                                                 By.XPath("//a[contains(@aria-label,\'Аккаунт Google\')]"));
             }
         }
+
+        public IWebElement SignOutButton => _driver.FindElement(By.XPath("//a[contains(text(),\'Sign out\')]"));
+
+        public IWebElement WriteEmailButton => _driver.FindElement(By.XPath("//div[contains(text(),\'Написать\')]"));
+
+        public IWebElement WriteEmailToEdit => _driver.FindElement(By.XPath("//textarea[@name=\'to\']"));
+
+        public IWebElement WriteEmailSubjectEdit => _driver.FindElement(By.Id("//input[@name=\'subjectbox\']"));
+
+        public IWebElement WriteEmailSendButton => _driver.FindElement(By.Id("//div[contains(@data-tooltip,\'Отправить\')]"));
     }
 }

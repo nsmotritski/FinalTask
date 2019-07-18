@@ -40,7 +40,7 @@ namespace FinalTask
         [AllureLink("1")]
         [AllureOwner("Nikolai Smotritski")]
         [AllureSeverity(Allure.Commons.Model.SeverityLevel.Minor)]
-        [AllureTest("Test login to tut.by using PageObject")]
+        [AllureTest("Test login to gmail.com using PageObject")]
         [TestCase("lvivautoteam@gmail.com", "zaq1ZAQ!", "Test User")]
         [Parallelizable]
         public void GmailLoginTest(string username, string password, string expectedUser)
@@ -63,10 +63,10 @@ namespace FinalTask
             _driver.TakeScreenshot("GmailLoginTest.png");
         }
 
-        [AllureLink("1")]
+        [AllureLink("2")]
         [AllureOwner("Nikolai Smotritski")]
         [AllureSeverity(Allure.Commons.Model.SeverityLevel.Minor)]
-        [AllureTest("Test login to tut.by using PageObject")]
+        [AllureTest("Test login and logout using PageObject")]
         [TestCase("lvivautoteam2@gmail.com", "zaq1ZAQ!", "Test User")]
         [Parallelizable]
         public void GmailLogoutTest(string username, string password, string expectedUser)
@@ -87,6 +87,39 @@ namespace FinalTask
 
             //take screenshot before the final check
             _driver.TakeScreenshot("GmailLoginTest.png");
+
+            //Logout from Gmail
+            inboxPage.AccountButton.Click();
+            inboxPage.SignOutButton.Click();
+            Assert.IsTrue(homePage.PasswordInput.Displayed, "User is not logged out redirected to home page!");
+        }
+
+        [AllureLink("3")]
+        [AllureOwner("Nikolai Smotritski")]
+        [AllureSeverity(Allure.Commons.Model.SeverityLevel.Minor)]
+        [AllureTest("Test login to gmail.com using PageObject")]
+        [TestCase("lvivautoteam@gmail.com", "lvivautoteam2@gmail.com", "zaq1ZAQ!", "Test User")]
+        [Parallelizable]
+        public void GmailSendEmailTest(string username1, string username2, string password, string expectedUser)
+        {
+            //Open gmail home page
+            _driver.Url = "https://gmail.com";
+
+            //perform login as User1
+            GmailHomePage homePage = new GmailHomePage(_driver);
+            homePage.Login(username1, password);
+
+            //Send email to User2
+            var inboxPage = new InboxPage(_driver);
+            inboxPage.WriteEmailButton.Click();
+            inboxPage.WriteEmailToEdit.SendKeys(username2);
+            var subject = "Email sent to " + username2 + " at " + new DateTime().ToString("yyyyMMddHHmmssffff");
+            inboxPage.WriteEmailSubjectEdit.SendKeys(subject);
+            inboxPage.WriteEmailSendButton.Click();
+
+            //perform login as User2
+            GmailHomePage homePage2 = new GmailHomePage(_driver);
+            homePage2.Login(username2, password);
         }
 
         [TearDown]
