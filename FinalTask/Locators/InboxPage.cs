@@ -28,14 +28,22 @@ namespace FinalTask.Locators
             }
         }
 
-        public IWebElement SignOutButton => _driver.FindElement(By.XPath("//a[contains(text(),\'Sign out\')]"));
+        public IWebElement SignOutButton
+        {
+            get
+            {
+                var elements = _driver.FindElements(By.XPath("//a[contains(text(),\'Выйти\')]"));
+                return _driver.FindElement(elements.Count == 0 ? By.XPath("//a[contains(text(),\'Sign out\')]") :
+                                                                By.XPath("//a[contains(text(),\'Выйти\')]"));
+            }
+        }
 
         public IWebElement WriteEmailButton => _driver.FindElement(By.XPath("//div[contains(text(),\'Написать\')]"));
 
         public IWebElement WriteEmailToEdit => _driver.FindElement(By.XPath("//textarea[@name=\'to\']"));
 
-        public IWebElement WriteEmailSubjectEdit => _driver.FindElement(By.Id("//input[@name=\'subjectbox\']"));
+        public IWebElement WriteEmailSubjectEdit => _driver.FindElement(By.XPath("//input[@name=\'subjectbox\']"));
 
-        public IWebElement WriteEmailSendButton => _driver.FindElement(By.Id("//div[contains(@data-tooltip,\'Отправить\')]"));
+        public IWebElement WriteEmailSendButton => _driver.FindElement(By.XPath("//div[contains(@data-tooltip,\'Отправить\')]"));
     }
 }

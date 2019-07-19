@@ -35,5 +35,18 @@ namespace WebDriverHelper
             }
             return driver.FindElement(by);
         }
+
+        public static bool IsAlertPresent(this IWebDriver driver)
+        {
+            try
+            {
+                driver.SwitchTo().Alert();
+                return true;
+            }   // try 
+            catch (NoAlertPresentException Ex)
+            {
+                return false;
+            } 
+        }
     }
 }

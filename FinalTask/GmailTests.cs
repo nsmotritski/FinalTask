@@ -89,8 +89,7 @@ namespace FinalTask
             _driver.TakeScreenshot("GmailLoginTest.png");
 
             //Logout from Gmail
-            inboxPage.AccountButton.Click();
-            inboxPage.SignOutButton.Click();
+            Logout(inboxPage);
             Assert.IsTrue(homePage.PasswordInput.Displayed, "User is not logged out redirected to home page!");
         }
 
@@ -117,9 +116,24 @@ namespace FinalTask
             inboxPage.WriteEmailSubjectEdit.SendKeys(subject);
             inboxPage.WriteEmailSendButton.Click();
 
-            //perform login as User2
-            GmailHomePage homePage2 = new GmailHomePage(_driver);
-            homePage2.Login(username2, password);
+            //Logout as User1
+            Logout(inboxPage);
+
+            //Perform login as User2
+            //_driver.Url = "https://gmail.com";
+            //homePage.Login(username2, password);
+
+
+        }
+
+        private void Logout(InboxPage inboxPage)
+        {
+            inboxPage.AccountButton.Click();
+            inboxPage.SignOutButton.Click();
+            if (_driver.IsAlertPresent())
+            {
+                _driver.SwitchTo().Alert().Accept();
+            }
         }
 
         [TearDown]
