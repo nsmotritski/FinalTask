@@ -24,8 +24,14 @@ namespace FinalTask.Locators
         [FindsBy(How = How.CssSelector, Using = "input[name='password']")]
         public IWebElement PasswordInput;
 
-        [FindsBy(How = How.XPath, Using = "//span[contains(@text,'Готово')]")]
+        [FindsBy(How = How.XPath, Using = "//span[contains(text(),'Готово')]")]
         public IWebElement ReadyButton;
+
+        [FindsBy(How = How.Id, Using = "profileIdentifier")]
+        public IWebElement ProfileIdentifierSelect;
+
+        [FindsBy(How = How.XPath, Using = "//div[contains(text(),'Сменить аккаунт')]")]
+        public IWebElement ChangeAccountButton;
 
         public GmailHomePage(IWebDriver driver)
         {

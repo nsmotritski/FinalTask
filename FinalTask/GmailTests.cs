@@ -89,7 +89,7 @@ namespace FinalTask
             _driver.TakeScreenshot("GmailLoginTest.png");
 
             //Logout from Gmail
-            Logout(inboxPage);
+            inboxPage.Logout();
             Assert.IsTrue(homePage.PasswordInput.Displayed, "User is not logged out redirected to home page!");
         }
 
@@ -112,29 +112,24 @@ namespace FinalTask
             var inboxPage = new InboxPage(_driver);
             inboxPage.WriteEmailButton.Click();
             inboxPage.WriteEmailToEdit.SendKeys(username2);
-            var subject = "Email sent to " + username2 + " at " + new DateTime().ToString("yyyyMMddHHmmssffff");
+            var subject = "Email sent to " + username2 + " at " + DateTime.Now.ToString("yyyyMMddHHmmssffff");
             inboxPage.WriteEmailSubjectEdit.SendKeys(subject);
             inboxPage.WriteEmailSendButton.Click();
 
             //Logout as User1
-            Logout(inboxPage);
+            inboxPage.Logout();
 
             //Perform login as User2
-            //_driver.Url = "https://gmail.com";
-            //homePage.Login(username2, password);
+            homePage.ProfileIdentifierSelect.Click();
+            _driver.WaitForElementDisplayed(By.XPath("//div[contains(text(),'Сменить аккаунт')]"), 5);
+            homePage.ChangeAccountButton.Click();
+            homePage.Login(username2, password);
+
+            //validate that email with the subject generated is available in the list of emails in the inbox of User2
 
 
         }
 
-        private void Logout(InboxPage inboxPage)
-        {
-            inboxPage.AccountButton.Click();
-            inboxPage.SignOutButton.Click();
-            if (_driver.IsAlertPresent())
-            {
-                _driver.SwitchTo().Alert().Accept();
-            }
-        }
 
         [TearDown]
         public void CloseBrowser()

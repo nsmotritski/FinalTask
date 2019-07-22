@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
+using WebDriverHelper;
 
 namespace FinalTask.Locators
 {
@@ -45,5 +46,15 @@ namespace FinalTask.Locators
         public IWebElement WriteEmailSubjectEdit => _driver.FindElement(By.XPath("//input[@name=\'subjectbox\']"));
 
         public IWebElement WriteEmailSendButton => _driver.FindElement(By.XPath("//div[contains(@data-tooltip,\'Отправить\')]"));
+
+        public void Logout()
+        {
+            AccountButton.Click();
+            SignOutButton.Click();
+            if (_driver.IsAlertPresent())
+            {
+                _driver.SwitchTo().Alert().Accept();
+            }
+        }
     }
 }
